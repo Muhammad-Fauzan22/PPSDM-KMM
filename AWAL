@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="id" class="smooth-scroll">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPSDM KMM ITS - Growth Navigator</title>
+    <meta name="description" content="Platform pengembangan sumber daya mahasiswa terpadu dari Keluarga Mahasiswa Mesin (KMM) ITS">
+    <meta name="keywords" content="PPSDM, KMM ITS, ITS, Teknik Mesin, Pengembangan Mahasiswa, IDP, RIASEC, Big Five, Asesmen">
+    <meta name="author" content="PPSDM KMM ITS">
+    <link rel="icon" href="https://www.its.ac.id/wp-content/uploads/2021/10/logo-its-biru.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-light: #f7f9fc; --text-light: #111827; --card-bg-light: #ffffff;
+            --bg-dark: #0f172a; --text-dark: #e2e8f0; --card-bg-dark: #1e293b;
+            --its-blue: #00539f; --accent-red: #da291c; --accent-yellow: #ffc72c;
+            --border-light: #e5e7eb; --border-dark: #334155;
+            --its-blue-dark-text: #7dd3fc; --subtle-text-dark: #94a3b8;
+        }
+        html.dark { color-scheme: dark; }
+        .smooth-scroll { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-light); 
+            color: var(--text-light); 
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(247,249,252,0.9) 0%, rgba(230,233,239,0.9) 100%);
+            backdrop-filter: blur(8px);
+            z-index: -1;
+            transition: background-color 0.3s;
+        }
+        html.dark body::before {
+            background: linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(30,41,59,0.9) 100%);
+        }
+
+        .bg-card { background-color: var(--card-bg-light); }
+        html.dark .bg-card { background-color: var(--card-bg-dark); }
+        .border-base { border-color: var(--border-light); }
+        html.dark .border-base { border-color: var(--border-dark); }
+        .text-main { color: var(--text-light); }
+        html.dark .text-main { color: var(--text-dark); }
+        .text-subtle { color: #4b5563; }
+        html.dark .text-subtle { color: var(--subtle-text-dark); }
+        .its-blue { color: var(--its-blue); }
+        html.dark .its-blue { color: var(--its-blue-dark-text); }
+        .accent-red { color: var(--accent-red); }
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link:after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; background-color: var(--accent-red); transition: all 0.3s ease-in-out; }
+        .nav-link:hover:after, .nav-link.active:after { width: 100%; left: 0; }
+        .nav-link:hover, .nav-link.active { color: var(--accent-red); }
+        .card { transition: transform 0.3s, box-shadow 0.3s; border: 1px solid var(--border-light); }
+        html.dark .card { border-color: var(--border-dark); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .step { transition: all 0.4s ease; border-bottom-width: 4px; white-space: nowrap; }
+        .step-inactive { border-color: transparent; color: #6b7280; }
+        .step-active { border-color: var(--its-blue); color: var(--its-blue); font-weight: 700; }
+        html.dark .step-active { color: var(--its-blue-dark-text); }
+        .step-completed { border-color: #16a34a; color: #15803d; }
+        html.dark .step-completed { color: #4ade80; }
+        
+        /* Form elements */
+        .form-input, .form-select, .form-textarea { 
+            width: 100%; 
+            padding: 0.75rem; 
+            border-radius: 0.5rem; 
+            transition: border-color 0.2s, box-shadow 0.2s; 
+            background-color: var(--card-bg-light); 
+            border: 1px solid var(--border-light); 
+            font-size: 0.9rem;
+        }
+        html.dark .form-input, html.dark .form-select, html.dark .form-textarea { 
+            background-color: #1e293b; 
+            border: 1px solid var(--border-dark); 
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { 
+            outline: none; 
+            border-color: #3b82f6; 
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); 
+        }
+        .form-input.invalid, .form-select.invalid, .form-textarea.invalid, .upload-area.invalid { 
+            border-color: #ef4444; 
+        }
+        .validation-message { 
+            color: #ef4444; 
+            font-size: 0.75rem; 
+            margin-top: 0.25rem; 
+            display: none;
+        }
+        
+        /* Assessment cards */
+        .assessment-card { 
+            border-radius: 0.75rem; 
+            border: 2px solid var(--border-light); 
+            padding: 1.25rem; 
+            cursor: pointer; 
+            height: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            transition: all 0.2s ease-in-out; 
+        }
+        .assessment-card:hover { border-color: var(--accent-yellow); }
+        .assessment-card.selected { border-color: var(--its-blue); background-color: #eff6ff; }
+        .assessment-card.v-selected { border-color: #8b5cf6; background-color: #f5f3ff; }
+        .assessment-card.a-selected { border-color: #ec4899; background-color: #fdf2f8; }
+        .assessment-card.r-selected { border-color: #10b981; background-color: #f0fdf4; }
+        .assessment-card.k-selected { border-color: #f59e0b; background-color: #fffbeb; }
+        html.dark .assessment-card.selected { background-color: #1e3a5f; border-color: #60a5fa; }
+        html.dark .assessment-card.v-selected { background-color: #3730a3; border-color: #a78bfa; }
+        html.dark .assessment-card.a-selected { background-color: #831843; border-color: #f472b6; }
+        html.dark .assessment-card.r-selected { background-color: #064e3b; border-color: #34d399; }
+        html.dark .assessment-card.k-selected { background-color: #78350f; border-color: #fbbf24; }
+        
+        /* Likert scale */
+        .likert-option { 
+            flex: 1; 
+            text-align: center; 
+            padding: 0.5rem 0.25rem; 
+            border: 2px solid var(--border-light); 
+            border-radius: 9999px; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            font-size: 0.75rem; 
+            min-width: 80px; 
+        }
+        .likert-option:hover { background-color: #f1f5f9; }
+        html.dark .likert-option:hover { background-color: #2d3748; }
+        .likert-option.selected { 
+            background-color: var(--its-blue); 
+            color: white; 
+            border-color: var(--its-blue); 
+            font-weight: bold; 
+        }
+        html.dark .likert-option.selected { 
+            background-color: var(--its-blue-dark-text); 
+            color: var(--bg-dark); 
+            border-color: var(--its-blue-dark-text); 
+        }
+        
+        /* Upload area */
+        .upload-area.drag-over { border-color: #2563eb; background-color: #eff6ff; }
+        html.dark .upload-area.drag-over { background-color: #1e3a8a; }
+        
+        /* Dashboard elements */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+        
+        /* Progress bar */
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: var(--its-blue);
+            transition: width 0.5s ease;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body class="text-main flex flex-col min-h-screen">
+    <header class="bg-card/90 backdrop-blur-lg sticky top-0 z-50 shadow-sm border-b border-base">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="https://www.its.ac.id/wp-content/uploads/2021/10/logo-its-biru.png" alt="Logo ITS" class="h-9 w-auto" width="36" height="36">
+                <img src="https://www.its.ac.id/mesin/wp-content/uploads/sites/44/2020/03/HMM-putih-1-300x300.png" alt="Logo HMM ITS" class="h-9 w-auto bg-gray-700 rounded-full" width="36" height="36">
+                <span class="font-bold text-lg its-blue hidden sm:block">PPSDM KMM ITS</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-5">
+                <a href="#benefits" class="nav-link font-medium">Manfaat</a>
+                <a href="#info-hub" class="nav-link font-medium">Pusat Informasi</a>
+                <a href="#assessment" class="nav-link font-medium">Asesmen</a>
+                <div id="auth-section" class="flex items-center space-x-2">
+                    <button id="login-btn" class="bg-blue-100 dark:bg-slate-700 text-blue-800 dark:text-white px-4 py-2 text-sm rounded-lg hover:bg-blue-200 dark:hover:bg-slate-600">
+                        Login Mahasiswa
+                    </button>
+                </div>
+                <button id="theme-toggle" class="text-subtle hover:text-blue-600 focus:outline-none" aria-label="Ganti Tema">
+                    <i class="fas fa-sun" id="theme-icon-light"></i>
+                    <i class="fas fa-moon hidden" id="theme-icon-dark"></i>
+                </button>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-subtle focus:outline-none" aria-label="Buka Menu" aria-expanded="false">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-card border-t border-base">
+            <a href="#benefits" class="block py-2 px-6 text-sm hover:bg-slate-100 dark:hover:bg-slate-700">Manfaat</a>
+            <a href="#info-hub" class="block py-2 px-6 text-sm hover:bg-slate-100 dark:hover:bg-slate-700">Pusat Informasi</a>
+            <a href="#assessment" class="block py-2 px-6 text-sm hover:bg-slate-100 dark:hover:bg-slate-700">Asesmen</a>
+            <button id="mobile-theme-toggle" class="w-full text-left py-2 px-6 text-sm hover:bg-slate-100 dark:hover:bg-slate-700">Ganti Tema</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="py-16 md:py-24 text-center reveal">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <h1 class="text-3xl md:text-5xl font-extrabold its-blue mb-4">Membangun Insinyur Unggul, Membentuk Masa Depan</h1>
+                <p class="text-lg text-subtle max-w-3xl mx-auto">Platform terpadu untuk merancang, melacak, dan mengakselerasi perjalanan pengembangan diri mahasiswa Teknik Mesin ITS</p>
+                <div class="mt-8">
+                    <a href="#assessment" class="inline-block bg-its-blue text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition text-lg">
+                        Mulai Asesmen
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Benefits Section -->
+        <section id="benefits" class="py-16 reveal">
+             <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 its-blue">Manfaat Utama Platform</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card p-5 rounded-xl bg-card animate-fadeIn" style="animation-delay: 0.1s">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i class="fas fa-search-plus text-xl accent-red"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 its-blue">Kesadaran Diri</h3>
+                        <p class="text-subtle text-sm">Pemetaan minat, kepribadian, dan gaya belajar sebagai fondasi pengembangan</p>
+                    </div>
+                    <div class="card p-5 rounded-xl bg-card animate-fadeIn" style="animation-delay: 0.2s">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i class="fas fa-cogs text-xl accent-red"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 its-blue">Pengembangan Personal</h3>
+                        <p class="text-subtle text-sm">Rekomendasi kegiatan dan strategi belajar yang sesuai profil Anda</p>
+                    </div>
+                    <div class="card p-5 rounded-xl bg-card animate-fadeIn" style="animation-delay: 0.3s">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i class="fas fa-road text-xl accent-red"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 its-blue">Perencanaan Karir</h3>
+                        <p class="text-subtle text-sm">Panduan membuat keputusan akademis dan karir yang strategis</p>
+                    </div>
+                     <div class="card p-5 rounded-xl bg-card animate-fadeIn" style="animation-delay: 0.4s">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i class="fas fa-shield-alt text-xl accent-red"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 its-blue">Kesejahteraan</h3>
+                        <p class="text-subtle text-sm">Peningkatan ketahanan mental dan kemampuan adaptasi</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Information Hub -->
+        <section id="info-hub" class="py-16 bg-slate-100 dark:bg-slate-900 reveal">
+             <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 its-blue">Pusat Informasi & Peluang</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card bg-card rounded-xl overflow-hidden">
+                        <div class="bg-gradient-to-r from-blue-500 to-its-blue h-40 flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-5xl"></i>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold mb-2 its-blue">Program MBKM</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                                    <span>Pendaftaran Magang & Studi Independen Batch 8 dibuka</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                                    <span>Panduan program Kampus Mengajar terbaru</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="text-blue-500 font-medium mt-4 inline-block hover:underline">
+                                Selengkapnya
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-card rounded-xl overflow-hidden">
+                        <div class="bg-gradient-to-r from-purple-500 to-indigo-700 h-40 flex items-center justify-center">
+                            <i class="fas fa-newspaper text-white text-5xl"></i>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold mb-2 its-blue">Berita ITS</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-newspaper text-gray-500 mt-1 mr-2 flex-shrink-0"></i>
+                                    <span>ITS raih peringkat pertama inovasi nasional</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-file-alt text-gray-500 mt-1 mr-2 flex-shrink-0"></i>
+                                    <span>Peraturan baru syarat kelulusan dan publikasi ilmiah</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="text-blue-500 font-medium mt-4 inline-block hover:underline">
+                                Selengkapnya
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="card bg-card rounded-xl overflow-hidden">
+                        <div class="bg-gradient-to-r from-yellow-500 to-accent-yellow h-40 flex items-center justify-center">
+                            <i class="fas fa-medal text-white text-5xl"></i>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold mb-2 its-blue">Peluang Beasiswa</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-graduation-cap text-purple-500 mt-1 mr-2 flex-shrink-0"></i>
+                                    <span>Beasiswa Bank Indonesia 2025</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-graduation-cap text-purple-500 mt-1 mr-2 flex-shrink-0"></i>
+                                    <span>Beasiswa LPDP untuk studi lanjut</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="text-blue-500 font-medium mt-4 inline-block hover:underline">
+                                Selengkapnya
+                            </a>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- Assessment Section -->
+        <section id="assessment" class="py-16 bg-white dark:bg-slate-800 reveal">
+            <div class="container mx-auto px-4">
+                <div id="assessment-container">
+                    <!-- Assessment wizard will be rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="py-16 bg-slate-50 dark:bg-slate-900 hidden">
+            <div class="container mx-auto px-4">
+                <div id="dashboard-content" class="reveal">
+                    <!-- Dashboard will be rendered here -->
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-slate-800 text-slate-300 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 PPSDM KMM ITS. Sebuah Upaya untuk Kemajuan Mahasiswa Teknik Mesin ITS.</p>
+            <div class="mt-4 flex justify-center space-x-6">
+                <a href="#" class="text-blue-400 hover:text-blue-300"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-blue-400 hover:text-blue-300"><i class="fab fa-line"></i></a>
+                <a href="#" class="text-blue-400 hover:text-blue-300"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- STATE MANAGEMENT ---
+        const state = {
+            currentStep: 0,
+            assessmentData: {
+                personal: {},
+                riasec: {},
+                vark: {},
+                pwb: {},
+                goals: {}
+            },
+            aiAnalysis: null
+        };
+
+        // --- THEME MANAGEMENT ---
+        function initTheme() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            
+            const applyTheme = (theme) => {
+                document.documentElement.classList.toggle('dark', theme === 'dark');
+                themeIconLight.classList.toggle('hidden', theme === 'dark');
+                themeIconDark.classList.toggle('hidden', theme !== 'dark');
+                localStorage.setItem('theme', theme);
+            };
+
+            const toggleTheme = () => {
+                const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                applyTheme(newTheme);
+            };
+
+            themeToggle.addEventListener('click', toggleTheme);
+            mobileThemeToggle.addEventListener('click', toggleTheme);
+            
+            // Apply saved theme or prefered scheme
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+        }
+
+        // --- ASSESSMENT STEPS ---
+        const assessmentSteps = [
+            { 
+                name: "Data Diri", 
+                icon: "fa-user", 
+                title: "Informasi Dasar & Kontak", 
+                description: "Lengkapi data diri dan kontak Anda. Informasi ini akan menjadi dasar profil Anda di Growth Navigator.",
+                content: `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="full_name" class="block font-semibold mb-1">Nama Lengkap</label>
+                        <input type="text" id="full_name" name="full_name" class="form-input" placeholder="Contoh: Rayhan Nugraha" required>
+                        <p class="validation-message hidden">Wajib diisi.</p>
+                    </div>
+                    <div>
+                        <label for="nickname" class="block font-semibold mb-1">Nama Panggilan</label>
+                        <input type="text" id="nickname" name="nickname" class="form-input" placeholder="Contoh: Aan" required>
+                        <p class="validation-message hidden">Wajib diisi.</p>
+                    </div>
+                    <div>
+                        <label for="registration_number" class="block font-semibold mb-1">Nomor Registrasi (NRP)</label>
+                        <input type="text" id="registration_number" name="registration_number" class="form-input" placeholder="50xxxxxxxx" required>
+                        <p class="validation-message hidden">Wajib diisi.</p>
+                    </div>
+                    <div>
+                        <label for="major" class="block font-semibold mb-1">Program Studi</label>
+                        <select id="major" name="major" class="form-select" required>
+                            <option value="">Pilih Program Studi</option>
+                            <option value="Teknik Mesin">Teknik Mesin</option>
+                            <option value="Rekayasa Keselamatan Proses">Rekayasa Keselamatan Proses</option>
+                        </select>
+                        <p class="validation-message hidden">Wajib dipilih.</p>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="whatsapp_number" class="block font-semibold mb-1">Nomor Whatsapp</label>
+                        <input type="tel" id="whatsapp_number" name="whatsapp_number" class="form-input" placeholder="+628123456789" required>
+                        <p class="validation-message hidden">Wajib diisi.</p>
+                    </div>
+                </div>
+                `
+            },
+            { 
+                name: "Minat", 
+                icon: "fa-heart", 
+                title: "Tes Minat Vokasional (RIASEC)", 
+                description: "Pilih seberapa minat Anda pada setiap aktivitas berikut. Ini membantu kami memahami tipe lingkungan kerja dan kegiatan yang paling cocok untuk Anda.",
+                content: `
+                <div class="space-y-6 max-h-[60vh] overflow-y-auto pr-4" id="riasec-questions-container">
+                    <!-- Questions will be loaded dynamically -->
+                </div>
+                `
+            },
+            { 
+                name: "Kepribadian", 
+                icon: "fa-brain", 
+                title: "Tes Kepribadian (Big Five)", 
+                description: "Lengkapi tes kepribadian untuk memahami karakter Anda. Ini akan membantu kami memberikan rekomendasi yang sesuai dengan kepribadian Anda.",
+                content: `
+                <div class="space-y-6 text-center">
+                    <p class="text-subtle">Tes ini membantu kami memahami gaya kerja dan interaksi Anda. Hasil tes bersifat rahasia dan hanya digunakan untuk rekomendasi pengembangan.</p>
+                    <div class="bg-blue-50 dark:bg-slate-700 p-4 rounded-lg">
+                        <p class="font-bold">Simulasi Tes Kepribadian</p>
+                        <p class="text-sm mt-2">Silakan jawab pertanyaan berikut sesuai dengan diri Anda</p>
+                    </div>
+                    <div class="space-y-6 mt-8 max-h-[50vh] overflow-y-auto pr-4" id="bigfive-questions-container">
+                        <!-- Questions will be loaded dynamically -->
+                    </div>
+                </div>
+                `
+            },
+            { 
+                name: "Gaya Belajar", 
+                icon: "fa-book", 
+                title: "Inventori Gaya Belajar (VARK)", 
+                description: "Pilih cara yang paling efektif bagi Anda untuk mempelajari sesuatu yang baru. Anda boleh memilih lebih dari satu jawaban jika sesuai.",
+                content: `
+                <div class="space-y-8 max-h-[60vh] overflow-y-auto pr-4" id="vark-questions-container">
+                    <!-- Questions will be loaded dynamically -->
+                </div>
+                `
+            },
+            { 
+                name: "Kesejahteraan", 
+                icon: "fa-spa", 
+                title: "Skala Kesejahteraan Psikologis", 
+                description: "Seberapa akurat pernyataan berikut mendeskripsikan diri Anda saat ini? Jawaban Anda bersifat rahasia.",
+                content: `
+                <div class="space-y-8 max-h-[60vh] overflow-y-auto pr-4" id="pwb-questions-container">
+                    <!-- Questions will be loaded dynamically -->
+                </div>
+                `
+            },
+            { 
+                name: "Aspirasi", 
+                icon: "fa-lightbulb", 
+                title: "Eksplorasi Minat & Aspirasi", 
+                description: "Bagian terakhir ini membantu kami memahami impian dan aspirasi Anda untuk pengembangan diri lebih lanjut.",
+                content: `
+                <div class="space-y-6 max-w-2xl mx-auto">
+                    <div>
+                        <label for="role_model_field" class="block font-semibold text-lg mb-2">Anda ingin berkembang secara eksplisit di ranah/bidang apa?</label>
+                        <input type="text" id="role_model_field" name="role_model_field" class="form-input" placeholder="Contoh: Technopreneurship, Riset Material, Manajemen Proyek" required>
+                        <p class="validation-message hidden">Wajib diisi.</p>
+                    </div>
+                    <div>
+                        <label for="role_model_person" class="block font-semibold text-lg mb-2">Di bidang tersebut, siapa tokoh yang menjadi role model Anda?</label>
+                        <input type="text" id="role_model_person" name="role_model_person" class="form-input" placeholder="Contoh: Elon Musk, Nadiem Makarim, Prof. Dr. Ir. Budi Santoso" required>
+                        <p class="validation-message hidden">Wajib diisi.</p>
+                    </div>
+                    <div>
+                        <label for="exp_q4" class="block font-semibold text-lg mb-2">Selama masa kuliah Anda di ITS, tuliskan 3 hingga 5 hal spesifik yang sangat ingin Anda wujudkan atau alami.</label>
+                        <textarea id="exp_q4" name="exp_q4" rows="4" class="form-textarea" placeholder="1. Mengikuti program pertukaran pelajar ke Jepang.&#10;2. Menjadi juara kompetisi robotika nasional.&#10;3. Terlibat dalam proyek sosial yang membantu masyarakat sekitar Surabaya." required></textarea>
+                        <p class="validation-message hidden">Wajib diisi.</p>
+                    </div>
+                </div>
+                `
+            }
+        ];
+
+        // Assessment questions
+        const riasecQuestions = [
+            "Bekerja dengan peralatan tangan atau mesin (misalnya, bor, gergaji, mesin bubut)",
+            "Mempelajari teori-teori ilmiah atau prinsip-prinsip matematika",
+            "Menciptakan karya seni (misalnya, melukis, memahat, membuat musik)",
+            "Membantu orang lain menyelesaikan masalah pribadi atau emosional mereka",
+            "Memimpin sebuah tim atau kelompok untuk mencapai suatu tujuan"
+        ];
+
+        const bigFiveQuestions = [
+            "Saya adalah orang yang suka bersosialisasi",
+            "Saya cenderung mudah marah atau tersinggung",
+            "Saya melakukan tugas dengan teliti dan tepat waktu",
+            "Saya mudah merasa cemas atau khawatir",
+            "Saya memiliki imajinasi yang aktif dan kreatif"
+        ];
+
+        const varkQuestions = [
+            {
+                q: "Saya ingin mendatangi satu toko yang disarankan teman. Saya akan:",
+                o: ["mencari toko itu berdasarkan tempat lain di sekitar situ yang sudah saya tahu", "bertanya pada teman yang tahu arah toko itu", "menuliskan alamat lengkap dan daftar belokan yang harus saya ingat", "menggunakan peta yang menunjukkan lokasi toko itu"]
+            },
+            {
+                q: "Suatu situs internet memiliki video mengenai cara membuat suatu grafik khusus. Saya paling mengerti isi situs itu dengan cara:",
+                o: ["mengamati diagram petunjuknya", "mendengar suara yang menjelaskan", "membaca instruksi yang tertulis", "melihat tindakan orangnya"]
+            }
+        ];
+
+        const pwbQuestions = [
+            "Saya menyukai sebagian besar bagian dari kepribadian saya",
+            "Ketika saya melihat perjalanan hidup saya, saya merasa puas dengan bagaimana segala sesuatunya berjalan sejauh ini",
+            "Beberapa orang menjalani hidup tanpa arah, tetapi saya bukan salah satunya",
+            "Tuntutan kehidupan sehari-hari sering membuat saya tertekan"
+        ];
+
+        // --- ASSESSMENT SYSTEM ---
+        function renderAssessment() {
+            const container = document.getElementById('assessment-container');
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 its-blue">Asesmen Awal Mahasiswa</h2>
+                    <p class="text-center text-subtle mb-8">Lengkapi semua bagian untuk membuka dasbor personal dan IDP</p>
+                    
+                    <!-- Progress bar -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium">Progress Asesmen</span>
+                            <span class="text-sm font-medium" id="progress-percentage">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-card rounded-xl shadow-lg p-4 md:p-6">
+                        <div id="stepper" class="flex overflow-x-auto pb-3 mb-6 gap-2"></div>
+                        <div id="assessment-content" class="min-h-[400px]"></div>
+                        
+                        <div class="flex justify-between items-center mt-8 pt-6 border-t border-base">
+                            <button id="prev-btn" class="bg-slate-200 dark:bg-slate-700 text-main font-bold py-2 px-6 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                                <i class="fas fa-arrow-left mr-2"></i>Kembali
+                            </button>
+                            <div class="text-sm font-medium text-subtle">
+                                Langkah <span id="current-step">1</span> dari <span id="total-steps">${assessmentSteps.length}</span>
+                            </div>
+                            <button id="next-btn" class="bg-its-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                                Lanjut <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+            
+            initAssessmentWizard();
+        }
+        
+        function initAssessmentWizard() {
+            const stepperContainer = document.getElementById('stepper');
+            const contentContainer = document.getElementById('assessment-content');
+            const totalStepsEl = document.getElementById('total-steps');
+            const currentStepEl = document.getElementById('current-step');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            // Initialize steps
+            totalStepsEl.textContent = assessmentSteps.length;
+            
+            // Render stepper
+            stepperContainer.innerHTML = '';
+            assessmentSteps.forEach((step, index) => {
+                const stepEl = document.createElement('div');
+                stepEl.className = `step flex flex-col items-center px-3 py-2 cursor-pointer ${index === 0 ? 'step-active' : 'step-inactive'}`;
+                stepEl.innerHTML = `
+                    <i class="fas ${step.icon} mb-1"></i>
+                    <span class="text-xs">${step.name}</span>
+                `;
+                stepEl.addEventListener('click', () => {
+                    if (index < state.currentStep) {
+                        state.currentStep = index;
+                        updateAssessmentUI();
+                    }
+                });
+                stepperContainer.appendChild(stepEl);
+            });
+            
+            // Render current step content
+            function updateAssessmentUI() {
+                // Update stepper
+                const steps = stepperContainer.querySelectorAll('.step');
+                steps.forEach((step, index) => {
+                    step.classList.remove('step-active', 'step-completed');
+                    if (index === state.currentStep) {
+                        step.classList.add('step-active');
+                    } else if (index < state.currentStep) {
+                        step.classList.add('step-completed');
+                    } else {
+                        step.classList.add('step-inactive');
+                    }
+                });
+                
+                // Update content
+                const currentStep = assessmentSteps[state.currentStep];
+                contentContainer.innerHTML = `
+                    <div class="text-center mb-6">
+                        <h3 class="font-bold text-xl md:text-2xl mb-2 its-blue">${currentStep.title}</h3>
+                        <p class="text-subtle">${currentStep.description}</p>
+                    </div>
+                    ${currentStep.content}`;
+                
+                // Update progress
+                const progress = (state.currentStep / assessmentSteps.length) * 100;
+                document.getElementById('progress-fill').style.width = `${progress}%`;
+                document.getElementById('progress-percentage').textContent = `${Math.round(progress)}%`;
+                
+                // Update buttons
+                prevBtn.disabled = state.currentStep === 0;
+                currentStepEl.textContent = state.currentStep + 1;
+                
+                if (state.currentStep === assessmentSteps.length - 1) {
+                    nextBtn.innerHTML = 'Selesai <i class="fas fa-check ml-2"></i>';
+                } else {
+                    nextBtn.innerHTML = 'Lanjut <i class="fas fa-arrow-right ml-2"></i>';
+                }
+                
+                // Load dynamic content for specific steps
+                if (state.currentStep === 1) {
+                    loadRiasecQuestions();
+                } else if (state.currentStep === 2) {
+                    loadBigFiveQuestions();
+                } else if (state.currentStep === 3) {
+                    loadVarkQuestions();
+                } else if (state.currentStep === 4) {
+                    loadPwbQuestions();
+                }
+            }
+            
+            function loadRiasecQuestions() {
+                const container = document.getElementById('riasec-questions-container');
+                container.innerHTML = riasecQuestions.map((q, i) => `
+                    <div class="mb-6">
+                        <p class="font-semibold mb-3">${i + 1}. ${q}</p>
+                        <div class="likert-scale grid grid-cols-5 gap-2" data-question="riasec_q${i + 1}">
+                            <button class="likert-option" data-value="1">Sangat Tidak Minat</button>
+                            <button class="likert-option" data-value="2">Tidak Minat</button>
+                            <button class="likert-option" data-value="3">Netral</button>
+                            <button class="likert-option" data-value="4">Minat</button>
+                            <button class="likert-option" data-value="5">Sangat Minat</button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                attachLikertListeners();
+            }
+            
+            function loadBigFiveQuestions() {
+                const container = document.getElementById('bigfive-questions-container');
+                container.innerHTML = bigFiveQuestions.map((q, i) => `
+                    <div class="mb-6">
+                        <p class="font-semibold mb-3">${i + 1}. ${q}</p>
+                        <div class="likert-scale grid grid-cols-5 gap-2" data-question="bigfive_q${i + 1}">
+                            <button class="likert-option" data-value="1">Sangat Tidak Setuju</button>
+                            <button class="likert-option" data-value="2">Tidak Setuju</button>
+                            <button class="likert-option" data-value="3">Netral</button>
+                            <button class="likert-option" data-value="4">Setuju</button>
+                            <button class="likert-option" data-value="5">Sangat Setuju</button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                attachLikertListeners();
+            }
+            
+            function loadVarkQuestions() {
+                const container = document.getElementById('vark-questions-container');
+                container.innerHTML = varkQuestions.map((item, index) => `
+                    <div class="mb-8">
+                        <p class="font-semibold text-lg mb-4">${index + 1}. ${item.q}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${item.o.map((option, i) => `
+                                <label class="assessment-card">
+                                    <input type="radio" name="vark_q${index + 1}" value="${i}" class="hidden">
+                                    <span class="font-medium">${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+                
+                attachCardListeners();
+            }
+            
+            function loadPwbQuestions() {
+                const container = document.getElementById('pwb-questions-container');
+                container.innerHTML = pwbQuestions.map((q, i) => `
+                    <div class="mb-6">
+                        <p class="font-semibold mb-3">${i + 1}. ${q}</p>
+                        <div class="likert-scale grid grid-cols-7 gap-1" data-question="pwb_q${i + 1}">
+                            <button class="likert-option" data-value="1">Sangat Tdk Setuju</button>
+                            <button class="likert-option" data-value="2">Tdk Setuju</button>
+                            <button class="likert-option" data-value="3">Agak Tdk Setuju</button>
+                            <button class="likert-option" data-value="4">Netral</button>
+                            <button class="likert-option" data-value="5">Agak Setuju</button>
+                            <button class="likert-option" data-value="6">Setuju</button>
+                            <button class="likert-option" data-value="7">Sangat Setuju</button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                attachLikertListeners();
+            }
+            
+            function attachLikertListeners() {
+                document.querySelectorAll('.likert-scale').forEach(scale => {
+                    scale.querySelectorAll('.likert-option').forEach(option => {
+                        option.addEventListener('click', () => {
+                            scale.querySelectorAll('.likert-option').forEach(opt => {
+                                opt.classList.remove('selected');
+                            });
+                            option.classList.add('selected');
+                        });
+                    });
+                });
+            }
+            
+            function attachCardListeners() {
+                document.querySelectorAll('.assessment-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const container = card.closest('.grid');
+                        container.querySelectorAll('.assessment-card').forEach(c => {
+                            c.classList.remove('selected');
+                        });
+                        card.classList.add('selected');
+                        const input = card.querySelector('input');
+                        input.checked = true;
+                    });
+                });
+            }
+            
+            function validateStep() {
+                // In a real implementation, this would validate the current step
+                return true;
+            }
+            
+            function saveStepData() {
+                const currentStep = assessmentSteps[state.currentStep];
+                
+                if (state.currentStep === 0) {
+                    // Personal data
+                    state.assessmentData.personal = {
+                        full_name: document.getElementById('full_name').value,
+                        nickname: document.getElementById('nickname').value,
+                        registration_number: document.getElementById('registration_number').value,
+                        major: document.getElementById('major').value,
+                        whatsapp_number: document.getElementById('whatsapp_number').value
+                    };
+                }
+                else if (state.currentStep === 1) {
+                    // RIASEC data
+                    state.assessmentData.riasec = {};
+                    document.querySelectorAll('#riasec-questions-container .likert-scale').forEach((scale, i) => {
+                        const selected = scale.querySelector('.selected');
+                        if (selected) {
+                            state.assessmentData.riasec[`q${i + 1}`] = selected.dataset.value;
+                        }
+                    });
+                }
+                else if (state.currentStep === 2) {
+                    // Big Five data
+                    state.assessmentData.bigfive = {};
+                    document.querySelectorAll('#bigfive-questions-container .likert-scale').forEach((scale, i) => {
+                        const selected = scale.querySelector('.selected');
+                        if (selected) {
+                            state.assessmentData.bigfive[`q${i + 1}`] = selected.dataset.value;
+                        }
+                    });
+                }
+                else if (state.currentStep === 3) {
+                    // VARK data
+                    state.assessmentData.vark = {};
+                    document.querySelectorAll('#vark-questions-container .assessment-card').forEach((card, i) => {
+                        const input = card.querySelector('input');
+                        if (input.checked) {
+                            state.assessmentData.vark[`q${i + 1}`] = input.value;
+                        }
+                    });
+                }
+                else if (state.currentStep === 4) {
+                    // PWB data
+                    state.assessmentData.pwb = {};
+                    document.querySelectorAll('#pwb-questions-container .likert-scale').forEach((scale, i) => {
+                        const selected = scale.querySelector('.selected');
+                        if (selected) {
+                            state.assessmentData.pwb[`q${i + 1}`] = selected.dataset.value;
+                        }
+                    });
+                }
+                else if (state.currentStep === 5) {
+                    // Goals data
+                    state.assessmentData.goals = {
+                        field: document.getElementById('role_model_field').value,
+                        person: document.getElementById('role_model_person').value,
+                        aspirations: document.getElementById('exp_q4').value
+                    };
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                if (state.currentStep > 0) {
+                    state.currentStep--;
+                    updateAssessmentUI();
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (validateStep()) {
+                    saveStepData();
+                    
+                    if (state.currentStep < assessmentSteps.length - 1) {
+                        state.currentStep++;
+                        updateAssessmentUI();
+                    } else {
+                        completeAssessment();
+                    }
+                } else {
+                    alert('Silakan lengkapi semua pertanyaan pada langkah ini');
+                }
+            });
+            
+            // Initialize
+            updateAssessmentUI();
+        }
+        
+        function completeAssessment() {
+            // Show success message
+            const assessmentContainer = document.getElementById('assessment-container');
+            assessmentContainer.innerHTML = `
+                <div class="max-w-2xl mx-auto text-center py-12">
+                    <div class="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-check text-green-500 text-3xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4 text-green-600">Asesmen Berhasil Diselesaikan!</h2>
+                    <p class="text-lg text-subtle mb-8">Terima kasih telah menyelesaikan asesmen. Hasil analisis dan rencana pengembangan Anda sedang diproses.</p>
+                    <button id="view-dashboard" class="bg-its-blue text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition text-lg">
+                        Lihat Dashboard & Rencana Pengembangan
+                    </button>
+                </div>`;
+            
+            document.getElementById('view-dashboard').addEventListener('click', renderDashboard);
+        }
+
+        // --- DASHBOARD ---
+        function renderDashboard() {
+            document.getElementById('assessment').classList.add('hidden');
+            const dashboardSection = document.getElementById('dashboard');
+            dashboardSection.classList.remove('hidden');
+            
+            const container = document.getElementById('dashboard-content');
+            container.innerHTML = `
+                <div class="max-w-6xl mx-auto">
+                    <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 its-blue">Dashboard Pengembangan Mahasiswa</h2>
+                    
+                    <div class="dashboard-grid gap-8">
+                        <div class="space-y-6">
+                            <div class="card p-5 rounded-xl bg-card">
+                                <h3 class="font-bold text-lg mb-4 its-blue">Profil Mahasiswa</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">Nama:</span>
+                                        <span>${state.assessmentData.personal?.full_name || '-'}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">Jurusan:</span>
+                                        <span>${state.assessmentData.personal?.major || '-'}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">NRP:</span>
+                                        <span>${state.assessmentData.personal?.registration_number || '-'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card p-5 rounded-xl bg-card">
+                                <h3 class="font-bold text-lg mb-4 its-blue">Ringkasan Asesmen</h3>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between items-center py-2 border-b border-base">
+                                        <strong>Tipe Kepribadian:</strong> 
+                                        <span class="font-mono bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full">
+                                            Pemikir-Analitis
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between items-center py-2 border-b border-base">
+                                        <strong>Gaya Belajar:</strong> 
+                                        <span class="font-mono bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 px-2 py-1 rounded-full">
+                                            Visual-Kinestetik
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between items-center pt-2">
+                                        <strong>Role Model:</strong> 
+                                        <span class="font-mono bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-200 px-2 py-1 rounded-full">
+                                            ${state.assessmentData.goals?.person || '-'}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card p-5 rounded-xl bg-card">
+                                <h3 class="font-bold text-lg mb-4 its-blue">Progress Pengembangan</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between mb-1 text-sm">
+                                            <span class="font-medium">Kemampuan Teknis</span>
+                                            <span>65%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 65%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1 text-sm">
+                                            <span class="font-medium">Kepemimpinan</span>
+                                            <span>40%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                            <div class="bg-red-500 h-2.5 rounded-full" style="width: 40%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1 text-sm">
+                                            <span class="font-medium">Komunikasi</span>
+                                            <span>55%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                            <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 55%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="card p-6 rounded-xl bg-card">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h2 class="text-xl md:text-2xl font-bold its-blue">Rencana Pengembangan Individual (IDP)</h2>
+                                        <p class="text-subtle">Draf IDP berdasarkan hasil asesmen Anda</p>
+                                    </div>
+                                    <button id="export-idp" class="flex items-center gap-2 bg-green-600 text-white px-3 py-2 text-sm rounded-lg hover:bg-green-700 transition">
+                                        <i class="fas fa-file-pdf"></i> Ekspor
+                                    </button>
+                                </div>
+                                <div id="idp-content" class="space-y-6">
+                                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                                        <h3 class="font-bold mb-3">Analisis Profil</h3>
+                                        <p>Berdasarkan hasil asesmen, Anda memiliki kemampuan analitis yang kuat dan minat yang besar di bidang teknik. Namun, kemampuan kepemimpinan dan komunikasi masih perlu ditingkatkan untuk mencapai potensi penuh Anda.</p>
+                                    </div>
+                                    
+                                    <div class="border-l-4 border-its-blue pl-4 py-2">
+                                        <h4 class="font-bold text-lg mb-2">1. Meningkatkan Kemampuan Kepemimpinan</h4>
+                                        <ul class="list-disc list-inside pl-2 text-subtle">
+                                            <li>Mengikuti LKMM Pra-TD semester ini</li>
+                                            <li>Menjadi ketua kelompok pada minimal 2 tugas kelompok</li>
+                                            <li>Bergabung dengan organisasi kemahasiswaan</li>
+                                        </ul>
+                                        <p class="text-sm font-medium text-blue-600 dark:text-blue-400 mt-3">Indikator Keberhasilan: Menjadi koordinator kegiatan di semester 2</p>
+                                    </div>
+                                    
+                                    <div class="border-l-4 border-its-blue pl-4 py-2">
+                                        <h4 class="font-bold text-lg mb-2">2. Menguasai Dasar-dasar CAD</h4>
+                                        <ul class="list-disc list-inside pl-2 text-subtle">
+                                            <li>Mengikuti workshop CAD bulan depan</li>
+                                            <li>Menyelesaikan 5 tutorial SolidWorks</li>
+                                            <li>Membuat desain sederhana untuk tugas kuliah</li>
+                                        </ul>
+                                        <p class="text-sm font-medium text-blue-600 dark:text-blue-400 mt-3">Indikator Keberhasilan: Mendapatkan sertifikat dasar CAD</p>
+                                    </div>
+                                    
+                                    <div class="border-l-4 border-its-blue pl-4 py-2">
+                                        <h4 class="font-bold text-lg mb-2">3. Meningkatkan Kemampuan Komunikasi</h4>
+                                        <ul class="list-disc list-inside pl-2 text-subtle">
+                                            <li>Mengikuti kelas public speaking</li>
+                                            <li>Berpresentasi minimal 3 kali di kelas</li>
+                                            <li>Menulis artikel teknis untuk blog kampus</li>
+                                        </ul>
+                                        <p class="text-sm font-medium text-blue-600 dark:text-blue-400 mt-3">Indikator Keberhasilan: Mampu mempresentasikan proyek dengan percaya diri</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card p-6 rounded-xl bg-card">
+                                <h3 class="font-bold text-lg mb-4 its-blue">Rekomendasi Kegiatan</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="border border-base rounded-lg p-4 hover:border-its-blue transition">
+                                        <h4 class="font-bold mb-2 flex items-center">
+                                            <i class="fas fa-users text-blue-500 mr-2"></i>
+                                            LKMM Pra-TD
+                                        </h4>
+                                        <p class="text-sm text-subtle">Pelatihan kepemimpinan dasar untuk mahasiswa baru</p>
+                                        <div class="mt-3 flex justify-between items-center">
+                                            <span class="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">Organisasi</span>
+                                            <span class="text-xs text-subtle">15-17 Mei 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="border border-base rounded-lg p-4 hover:border-its-blue transition">
+                                        <h4 class="font-bold mb-2 flex items-center">
+                                            <i class="fas fa-laptop-code text-purple-500 mr-2"></i>
+                                            Workshop CAD
+                                        </h4>
+                                        <p class="text-sm text-subtle">Pelatihan SolidWorks untuk pemula</p>
+                                        <div class="mt-3 flex justify-between items-center">
+                                            <span class="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 px-2 py-1 rounded">Akademik</span>
+                                            <span class="text-xs text-subtle">22-24 Mei 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            
+            // Add event listener for PDF export
+            document.getElementById('export-idp').addEventListener('click', exportIDP);
+        }
+        
+        function exportIDP() {
+            alert("Fitur ekspor PDF akan diimplementasikan di sini");
+            // Actual implementation would use jsPDF and html2canvas
+        }
+
+        // --- INITIALIZATION ---
+        function initApp() {
+            initTheme();
+            renderAssessment();
+            
+            // Mobile menu
+            document.getElementById('menu-btn').addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                const isExpanded = menu.classList.toggle('hidden');
+                document.getElementById('menu-btn').setAttribute('aria-expanded', !isExpanded);
+            });
+            
+            // Theme toggle for mobile
+            document.getElementById('mobile-theme-toggle').addEventListener('click', () => {
+                const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                document.documentElement.classList.toggle('dark');
+            });
+            
+            // Login button
+            document.getElementById('login-btn').addEventListener('click', () => {
+                alert("Fitur login akan diimplementasikan di sini");
+            });
+        }
+
+        // Start the application
+        initApp();
+    });
+    </script>
+</body>
+</html>
