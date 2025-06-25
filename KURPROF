@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naskah Akademik Kurikulum Keprofesian KMM ITS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a3a6c 0%, #2c5282 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #1a3a6c;
+            font-size: 1.8rem;
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h3 {
+            color: #2c5282;
+            font-size: 1.4rem;
+            margin: 20px 0 10px;
+        }
+        
+        h4 {
+            color: #4a6fa5;
+            font-size: 1.2rem;
+            margin: 15px 0 8px;
+        }
+        
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin: 10px 0 10px 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th {
+            background-color: #2c5282;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        tr:hover {
+            background-color: #edf2f7;
+        }
+        
+        .chapter {
+            background-color: #f0f7ff;
+            border-left: 5px solid #2c5282;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .attachment {
+            background-color: #f9fbfd;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .attachment h3 {
+            color: #1a3a6c;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .section-number {
+            display: inline-block;
+            background-color: #2c5282;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .kata-pengantar {
+            font-style: italic;
+            background-color: #fffaf0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ecc94b;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>NASKAH AKADEMIK TENTANG PEMBENTUKAN KURIKULUM KEPROFESIAN</h1>
+        <p class="subtitle">Sebagai Landasan Pengembangan Sumber Daya Mahasiswa Keluarga Mahasiswa Mesin (KMM) Institut Teknologi Sepuluh Nopember</p>
+    </header>
+
+    <div class="container">
+        <div class="kata-pengantar">
+            <h2>KATA PENGANTAR</h2>
+            <p>Puji syukur dipanjatkan kehadirat Tuhan Yang Maha Esa, karena atas rahmat dan karunia-Nya, penyusunan Naskah Akademik tentang Pembentukan Kurikulum Keprofesian Keluarga Mahasiswa Mesin (KMM) Institut Teknologi Sepuluh Nopember (ITS) ini dapat diselesaikan. Naskah Akademik ini disusun sebagai landasan konseptual, yuridis, dan empiris yang komprehensif untuk merumuskan sebuah sistem pengembangan mahasiswa yang terstruktur, holistik, dan relevan dengan tantangan zaman.</p>
+            <p>Dalam menghadapi dinamika Revolusi Industri 4.0 dan tuntutan global, pendidikan tinggi dituntut untuk tidak hanya menghasilkan lulusan yang kompeten secara teknis, tetapi juga individu yang matang secara karakter, adaptif, dan mampu memberikan kontribusi nyata bagi masyarakat. Menjawab tantangan tersebut, Himpunan Mahasiswa Mesin (HMM) ITS memandang perlu adanya sebuah transformasi dalam pendekatan pengembangan sumber daya mahasiswanya. Transformasi ini diwujudkan melalui perumusan Kurikulum Keprofesian yang sistematis, yang berfungsi sebagai peta jalan pengembangan individu (Individual Development Plan - IDP) bagi setiap mahasiswa Teknik Mesin ITS sejak awal masa studi.</p>
+            <p>Penyusunan Naskah Akademik ini didasari oleh analisis mendalam terhadap berbagai dokumen strategis, baik di tingkat nasional, institusional, maupun internal organisasi. Dokumen ini mengkaji landasan filosofis yang berakar pada nilai-nilai luhur KMM ITS, landasan yuridis yang memberikan legitimasi kewenangan, landasan historis yang merefleksikan evolusi pengembangan mahasiswa, serta landasan empiris yang memotret kebutuhan nyata mahasiswa dan pemangku kepentingan.</p>
+            <p>Besar harapan kami, Naskah Akademik ini dapat menjadi rujukan yang kokoh dan dapat dipertanggungjawabkan secara ilmiah dalam proses perancangan dan penetapan Peraturan Himpunan Mahasiswa Mesin tentang Kurikulum Keprofesian. Semoga ikhtiar ini menjadi langkah strategis dalam upaya mencetak "Insan Teknik yang Unggul, Inovatif, Solid, dan Berdampak," sebagaimana dicita-citakan dalam Visi KMM ITS, demi kemajuan almamater, bangsa, dan negara.</p>
+            <p class="center">Surabaya, 25 November 2024<br>Tim Penyusun</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>DAFTAR ISI</h2>
+        <ul>
+            <li>BAB I: PENDAHULUAN
+                <ul>
+                    <li>1.1. Latar Belakang</li>
+                    <li>1.2. Identifikasi Masalah</li>
+                    <li>1.3. Tujuan dan Kegunaan Penyusunan Naskah Akademik</li>
+                    <li>1.4. Metode Penyusunan</li>
+                </ul>
+            </li>
+            <li>BAB II: KAJIAN TEORETIS DAN PRAKTIK EMPIRIS
+                <ul>
+                    <li>2.1. Kajian Teoretis Pengembangan Kurikulum Modern
+                        <ul>
+                            <li>2.1.1. Pendidikan Berbasis Kompetensi (Competency-Based Education - CBE) dalam Pendidikan Teknik</li>
+                            <li>2.1.2. Pendidikan Teknik Holistik (Holistic Engineering Education)</li>
+                            <li>2.1.3. Landasan Psikometrik untuk Analisis Mahasiswa</li>
+                        </ul>
+                    </li>
+                    <li>2.2. Praktik Empiris dan Kebutuhan Pemangku Kepentingan
+                        <ul>
+                            <li>2.2.1. Analisis Kondisi Internal KMM ITS</li>
+                            <li>2.2.2. Kebutuhan Industri 4.0 untuk Insinyur Teknik Mesin</li>
+                            <li>2.2.3. Perumusan Profil Ideal Mahasiswa Teknik Mesin ITS</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>BAB III: EVALUASI DAN ANALISIS PERATURAN PERUNDANG-UNDANGAN TERKAIT
+                <ul>
+                    <li>3.1. Hierarki Peraturan Perundang-undangan</li>
+                    <li>3.2. Analisis Keterkaitan dengan Dokumen Internal</li>
+                </ul>
+            </li>
+            <li>BAB IV: LANDASAN FILOSOFIS, SOSIOLOGIS, DAN YURIDIS
+                <ul>
+                    <li>4.1. Landasan Filosofis</li>
+                    <li>4.2. Landasan Sosiologis</li>
+                    <li>4.3. Landasan Yuridis</li>
+                </ul>
+            </li>
+            <li>BAB V: JANGKAUAN, ARAH PENGATURAN, DAN RUANG LINGKUP
+                <ul>
+                    <li>5.1. Jangkauan Pengaturan</li>
+                    <li>5.2. Arah Pengaturan</li>
+                    <li>5.3. Ruang Lingkup Materi Muatan</li>
+                </ul>
+            </li>
+            <li>BAB VI: PENUTUP
+                <ul>
+                    <li>6.1. Simpulan</li>
+                    <li>6.2. Saran</li>
+                </ul>
+            </li>
+            <li>DAFTAR PUSTAKA</li>
+            <li>LAMPIRAN</li>
+        </ul>
+    </div>
+
+    <!-- BAB I: Pendahuluan -->
+    <div class="container">
+        <div class="chapter">
+            <h2>BAB I: PENDAHULUAN</h2>
+            
+            <h3><span class="section-number">1.1</span> Latar Belakang</h3>
+            <p>Pendidikan tinggi di era Revolusi Industri 4.0 dan Society 5.0 mengemban amanah fundamental untuk mempersiapkan sumber daya manusia (SDM) unggul yang tidak hanya kompeten secara keilmuan, namun juga matang secara personal, berkarakter, serta mampu beradaptasi dan berinovasi. Proses transformasi individu selama menempuh pendidikan di perguruan tinggi bukanlah proses yang dapat berjalan secara parsial. Mahasiswa baru, sebagai input utama dalam sistem pendidikan, hadir dengan serangkaian modalitas awal yang sangat beragam, mencakup potensi intelektual, karakteristik kepribadian, latar belakang pengalaman, hingga aspirasi karir. Mengabaikan keragaman ini dan menerapkan pendekatan pengembangan yang seragam berisiko menghasilkan lulusan yang tidak sepenuhnya siap menghadapi kompleksitas tantangan profesional dan sosial.</p>
+            
+            <h3><span class="section-number">1.2</span> Identifikasi Masalah</h3>
+            <p>Berdasarkan latar belakang yang telah diuraikan, dapat diidentifikasi beberapa permasalahan mendasar yang hendak dijawab melalui pembentukan Kurikulum Keprofesian ini. Permasalahan-permasalahan tersebut dirumuskan sebagai berikut:</p>
+            <ol>
+                <li>Bagaimana merancang sebuah sistem pengembangan yang terstruktur, holistik, dan berkelanjutan bagi seluruh jenjang mahasiswa (Tahun 1-4), untuk mengatasi kecenderungan historis pengembangan yang kerap terfokus hanya pada mahasiswa baru?</li>
+                <li>Bagaimana menjembatani kesenjangan antara kurikulum akademik formal yang ditempuh mahasiswa dengan tuntutan kompetensi riil di dunia profesional, yang mencakup hard skills (keterampilan teknis) dan soft skills (keterampilan interpersonal dan konseptual)?</li>
+                <li>Bagaimana menyediakan sebuah kerangka acuan yang sistematis untuk penyusunan Rencana Pengembangan Individu (IDP) yang bersifat personal, terukur, dan adaptif bagi setiap mahasiswa, sebagai alternatif dari pendekatan pengembangan "satu untuk semua"?</li>
+                <li>Bagaimana memastikan bahwa seluruh program pengembangan mahasiswa di lingkungan KMM ITS memiliki landasan yuridis dan filosofis yang kokoh, serta selaras dengan peraturan di tingkat yang lebih tinggi (UU Dikti, Statuta ITS, HDPSDM KM ITS) dan nilai-nilai fundamental organisasi (Solidaritas, Über Alles)?</li>
+            </ol>
+            
+            <h3><span class="section-number">1.3</span> Tujuan dan Kegunaan Penyusunan Naskah Akademik</h3>
+            <p>Sesuai dengan amanat Undang-Undang Nomor 12 Tahun 2011 tentang Pembentukan Peraturan Perundang-undangan, penyusunan Naskah Akademik ini memiliki tujuan dan kegunaan sebagai berikut:</p>
+            
+            <h4>Tujuan:</h4>
+            <ol>
+                <li>Merumuskan permasalahan hukum dan kebutuhan organisasi yang dihadapi KMM ITS sebagai alasan (justifikasi) fundamental bagi pembentukan Kurikulum Keprofesian.</li>
+                <li>Merumuskan pertimbangan dan landasan filosofis, sosiologis, dan yuridis yang komprehensif sebagai dasar pembentukan Peraturan Himpunan Mahasiswa Mesin tentang Kurikulum Keprofesian.</li>
+                <li>Merumuskan sasaran yang akan diwujudkan, ruang lingkup materi muatan, jangkauan, dan arah pengaturan dalam Draf Peraturan Himpunan Mahasiswa Mesin tentang Kurikulum Keprofesian.</li>
+            </ol>
+            
+            <h4>Kegunaan:</h4>
+            <p>Naskah Akademik ini berguna sebagai dokumen justifikasi ilmiah yang menjadi satu kesatuan tak terpisahkan dengan Draf Peraturan Himpunan Mahasiswa Mesin tentang Kurikulum Keprofesian. Keberadaannya memastikan bahwa produk hukum yang dihasilkan dapat dipertanggungjawabkan secara konseptual, strategis, dan legal, serta menjadi acuan yang jelas bagi seluruh pemangku kepentingan dalam memahami rasionalitas dan arah implementasi Kurikulum Keprofesian di lingkungan KMM ITS.</p>
+            
+            <h3><span class="section-number">1.4</span> Metode Penyusunan</h3>
+            <p>Penyusunan Naskah Akademik ini menggunakan pendekatan penelitian hukum normatif dan yuridis-empiris yang dikombinasikan dengan metode studi literatur dan analisis dokumen (document analysis). Pendekatan ini dipilih untuk membangun kerangka argumentasi yang kuat, berbasis bukti, dan dapat dipertanggungjawabkan. Proses metodologis ini melibatkan langkah-langkah sebagai berikut:</p>
+            <ol>
+                <li><strong>Pengumpulan Sumber Data:</strong> Mengumpulkan data primer dan sekunder yang relevan.
+                    <ul>
+                        <li><strong>Sumber Data Primer:</strong> Meliputi peraturan perundang-undangan tingkat nasional (UU No. 12 Tahun 2012 tentang Pendidikan Tinggi, UU No. 12 Tahun 2011 tentang Pembentukan Peraturan Perundang-undangan), peraturan institusional (PP No. 54 Tahun 2015 tentang Statuta ITS, Peraturan Rektor ITS No. 23 Tahun 2019 tentang SKEM), serta peraturan dan dokumen internal organisasi kemahasiswaan (Ketetapan MUBES KM ITS mengenai KDKM dan HDPSDM , Rencana Pengembangan Jangka Panjang KMM ITS , Pola Pengembangan Sumber Daya Mahasiswa KMM ITS , Panduan Analisis Raw Material Mahasiswa Baru , dan contoh Rencana Pengembangan Individu ).</li>
+                        <li><strong>Sumber Data Sekunder:</strong> Meliputi literatur ilmiah dan laporan industri mengenai Competency-Based Education (CBE), Holistic Engineering Education, analisis kebutuhan kompetensi insinyur mesin di era Industri 4.0, serta kurikulum program studi Teknik Mesin dari universitas lain sebagai bahan perbandingan.</li>
+                    </ul>
+                </li>
+                <li><strong>Analisis Data:</strong> Melakukan analisis konten kualitatif terhadap seluruh sumber data yang terkumpul untuk mengekstraksi, mensintesis, dan menginterpretasi informasi yang relevan dengan setiap landasan (filosofis, sosiologis, yuridis, historis, dan teoretis) yang menjadi pilar Naskah Akademik ini.</li>
+                <li><strong>Perumusan Kerangka:</strong> Menyusun hasil analisis ke dalam struktur Naskah Akademik yang sistematis sesuai dengan Lampiran I Undang-Undang Nomor 12 Tahun 2011, yang mencakup Bab Pendahuluan, Kajian Teoretis dan Praktik Empiris, Evaluasi Peraturan Terkait, Landasan Filosofis, Sosiologis, dan Yuridis, hingga Bab Penutup.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- BAB II: Kajian Teoretis dan Praktik Empiris -->
+    <div class="container">
+        <div class="chapter">
+            <h2>BAB II: KAJIAN TEORETIS DAN PRAKTIK EMPIRIS</h2>
+            
+            <h3><span class="section-number">2.1</span> Kajian Teoretis Pengembangan Kurikulum Modern</h3>
+            <p>Pembentukan Kurikulum Keprofesian KMM ITS tidak berdiri di ruang hampa, melainkan berlandaskan pada paradigma pendidikan modern yang telah teruji dan diakui relevansinya, terutama dalam konteks pendidikan tinggi teknik. Tiga pilar teoretis utama yang mendasari kurikulum ini adalah Pendidikan Berbasis Kompetensi (Competency-Based Education), Pendidikan Teknik Holistik (Holistic Engineering Education), dan pemanfaatan instrumen asesmen psikometrik yang valid untuk memahami potensi individu.</p>
+            
+            <h4>2.1.1. Pendidikan Berbasis Kompetensi (Competency-Based Education - CBE) dalam Pendidikan Teknik</h4>
+            <p>Pendidikan Berbasis Kompetensi (CBE) adalah sebuah pendekatan pendidikan yang berfokus pada hasil belajar (learning outcomes). Dalam model ini, kemajuan mahasiswa diukur berdasarkan demonstrasi penguasaan kompetensi---yang didefinisikan sebagai perpaduan antara pengetahuan, keterampilan, dan sikap (Knowledge, Skills, and Attitudes)---bukan semata-mata berdasarkan waktu yang dihabiskan di dalam kelas. Prinsip ini sangat relevan untuk pendidikan teknik karena secara langsung menjawab kebutuhan industri akan lulusan yang tidak hanya "tahu" teori, tetapi juga "bisa" menerapkan pengetahuan tersebut untuk memecahkan masalah-masalah praktis di dunia nyata.</p>
+            <p>Kurikulum Keprofesian KMM ITS mengadopsi semangat CBE dengan cara:</p>
+            <ol>
+                <li><strong>Mendefinisikan Kompetensi dengan Jelas:</strong> Setiap mata kuliah, baik wajib maupun pilihan, dipetakan secara eksplisit ke dalam rekomendasi hard skills (kompetensi teknis) dan soft skills (kompetensi interpersonal dan konseptual) yang harus dikuasai.</li>
+                <li><strong>Mendorong Pembelajaran Aktif:</strong> Dengan memberikan rekomendasi aktivitas pengembangan, kurikulum ini mendorong mahasiswa untuk secara proaktif mencari pengalaman belajar di luar kelas (misalnya, workshop, proyek, kompetisi) untuk mencapai penguasaan kompetensi.</li>
+                <li><strong>Fokus pada Aplikasi:</strong> Penekanan pada kegiatan praktikum, proyek desain, dan keterlibatan dalam tim riset memastikan bahwa mahasiswa tidak hanya belajar teori, tetapi juga mampu mengaplikasikannya dalam konteks yang relevan.</li>
+            </ol>
+            
+            <h4>2.1.2. Pendidikan Teknik Holistik (Holistic Engineering Education)</h4>
+            <p>Paradigma pendidikan teknik tradisional yang hanya berfokus pada presisi teknologi dan penguasaan teknis semata dianggap tidak lagi memadai untuk menghadapi tantangan abad ke-21. Pendidikan Teknik Holistik muncul sebagai jawaban, yaitu sebuah pendekatan yang mengintegrasikan pengembangan keterampilan teknis yang mendalam dengan pemahaman yang luas mengenai konteks sosial, etika, lingkungan, ekonomi, dan kemanusiaan. Tujuannya adalah untuk membentuk insinyur yang tidak hanya mampu menciptakan teknologi yang canggih, tetapi juga bertanggung jawab dan mampu memastikan bahwa solusi rekayasa yang dihasilkan bersifat adil, merata, dan berkelanjutan.</p>
+            <p>Kurikulum Keprofesian ini secara sadar menerapkan pendekatan holistik dengan menyeimbangkan pengembangan dua aspek utama:</p>
+            <ul>
+                <li><strong>Aspek Akademik:</strong> Mencakup penguasaan hard skills dan pengetahuan inti keprofesian Teknik Mesin melalui mata kuliah wajib dan pilihan.</li>
+                <li><strong>Aspek Non-Akademik:</strong> Mencakup pengembangan soft skills, karakter, kepemimpinan, dan wawasan sosial melalui jalur pengembangan manajerial, keilmiahan, kewirausahaan, serta minat dan bakat.</li>
+            </ul>
+            
+            <h4>2.1.3. Landasan Psikometrik untuk Analisis Mahasiswa</h4>
+            <p>Untuk mewujudkan pengembangan yang dipersonalisasi, langkah pertama yang krusial adalah memahami "bahan mentah" (raw material) dari setiap mahasiswa. Kurikulum ini mengintegrasikan hasil dari Analisis Raw Material (ARM) yang menggunakan instrumen-instrumen psikometrik yang telah diakui secara luas.</p>
+            <ul>
+                <li><strong>Teori Holland (RIASEC):</strong> Teori ini menyatakan bahwa pilihan karier dan kepuasan kerja sangat dipengaruhi oleh keselarasan antara tipe kepribadian individu dengan lingkungan kerjanya. Terdapat enam tipe kepribadian: Realistic (R), Investigative (I), Artistic (A), Social (S), Enterprising (E), dan Conventional (C). Dalam Kurikulum Keprofesian, pemahaman kode RIASEC mahasiswa digunakan untuk memberikan rekomendasi peminatan laboratorium dan jalur pengembangan non-akademik yang paling sesuai dengan minat intrinsiknya.</li>
+                <li><strong>Model Big Five (OCEAN):</strong> Model ini mengidentifikasi lima dimensi utama kepribadian yang relatif stabil: Openness (Keterbukaan), Conscientiousness (Kehati-hatian), Extraversion (Ekstraversi), Agreeableness (Keramahan), dan Neuroticism (Neurotisisme). Setiap dimensi memiliki implikasi penting terhadap gaya belajar, potensi kepemimpinan, kemampuan kerja tim, dan ketahanan terhadap stres akademik. Data ini digunakan untuk memberikan rekomendasi strategi pengembangan soft skills yang spesifik bagi setiap individu.</li>
+                <li><strong>Model Gaya Belajar VARK:</strong> Model ini mengkategorikan preferensi cara individu menerima dan memproses informasi ke dalam empat modalitas: Visual (V), Aural (A), Read/Write (R), dan Kinesthetic (K). Informasi ini menjadi dasar bagi mahasiswa untuk merancang strategi belajar yang paling efektif bagi dirinya, misalnya dengan membuat mind map (Visual) atau terlibat aktif dalam praktikum (Kinesthetic).</li>
+            </ul>
+            
+            <h3><span class="section-number">2.2</span> Praktik Empiris dan Kebutuhan Pemangku Kepentingan</h3>
+            
+            <h4>2.2.1. Analisis Kondisi Internal KMM ITS</h4>
+            <p>Analisis terhadap dokumen internal dan kondisi empiris di KMM ITS menunjukkan adanya kekuatan yang dapat dimanfaatkan sekaligus kelemahan yang perlu diatasi melalui kurikulum ini.</p>
+            <ul>
+                <li><strong>Kekuatan:</strong> KMM ITS memiliki fondasi yang solid berupa landasan hukum internal yang kuat (KDKMM), struktur Himpunan Mahasiswa Mesin (HMM) yang telah mapan, dan potensi sinergi dari keberadaan dua program studi (Teknik Mesin dan Rekayasa Keselamatan Proses).</li>
+                <li><strong>Kelemahan:</strong> Praktik pengembangan mahasiswa yang ada cenderung berfokus pada mahasiswa baru, menciptakan kekosongan pembinaan pada tingkat lanjut. Selain itu, belum ada mekanisme pemetaan minat dan potensi yang sistematis, yang menyebabkan program pengembangan seringkali kurang tepat sasaran. Isu keberlanjutan dan transfer pengetahuan antar kepengurusan juga menjadi tantangan kronis.</li>
+                <li><strong>Implikasi:</strong> Kurikulum Keprofesian ini dirancang secara spesifik untuk mengatasi kelemahan tersebut. Dengan menyediakan peta jalan pengembangan untuk seluruh jenjang (Tahun 1-4) dan mendasarkan rekomendasinya pada pemetaan potensi awal (ARM), kurikulum ini memastikan adanya kesinambungan dan personalisasi dalam proses pengembangan.</li>
+            </ul>
+            
+            <h4>2.2.2. Kebutuhan Industri 4.0 untuk Insinyur Teknik Mesin</h4>
+            <p>Dunia industri modern menuntut profil insinyur Teknik Mesin yang jauh lebih kompleks. Selain penguasaan fundamental rekayasa (termodinamika, mekanika fluida, kekuatan material), insinyur masa kini harus memiliki kompetensi di bidang-bidang yang menjadi pilar Industri 4.0, seperti otomasi industri, robotika, Internet of Things (IoT), Artificial Intelligence (AI) dan Machine Learning (ML), manufaktur aditif (3D Printing), serta analisis data besar (Big Data Analytics). Di samping hard skills tersebut, industri secara konsisten menekankan pentingnya soft skills seperti pemecahan masalah yang kompleks (complex problem solving), berpikir kritis, kreativitas, komunikasi efektif, kolaborasi tim, dan kepemimpinan. Kurikulum Keprofesian ini secara eksplisit memetakan pengembangan hard skills dan soft skills ini ke dalam setiap mata kuliah dan jalur pengembangan non-akademik.</p>
+            
+            <h4>2.2.3. Perumusan Profil Ideal Mahasiswa Teknik Mesin ITS</h4>
+            <p>Sebagai puncak dari analisis teoretis dan empiris, serta sintesis dari Visi-Misi KMM ITS dan Model Mahasiswa ITS dalam HDPSDM KM ITS, dirumuskanlah Profil Ideal Mahasiswa Teknik Mesin ITS. Profil ini bukan sekadar daftar kompetensi, melainkan sebuah persona utuh yang menjadi tujuan akhir dari Kurikulum Keprofesian. Profil ini berdiri di atas tiga pilar fundamental yang saling menopang: <strong>Keunggulan Teknis</strong>, <strong>Kecakapan Manajerial & Interpersonal</strong>, dan <strong>Karakter Berintegritas & Berdampak</strong>.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pilar Kompetensi</th>
+                        <th>Dimensi Kompetensi</th>
+                        <th>Indikator Perilaku Kunci (Capaian)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="5"><strong>Keunggulan Teknis</strong></td>
+                        <td>1. Penguasaan Fondasi Rekayasa</td>
+                        <td>Mampu menerapkan prinsip-prinsip matematika, sains dasar, dan ilmu rekayasa untuk menganalisis dan memecahkan masalah keteknikan.</td>
+                    </tr>
+                    <tr>
+                        <td>2. Kompetensi Desain & Analisis</td>
+                        <td>Mampu merancang sistem, komponen, atau proses mekanis dengan menggunakan piranti rekayasa modern (misal: CAD, FEA, CFD) dan mempertimbangkan berbagai batasan.</td>
+                    </tr>
+                    <tr>
+                        <td>3. Kompetensi Manufaktur & Material</td>
+                        <td>Memahami berbagai proses manufaktur dan karakteristik material untuk menghasilkan produk rekayasa yang efisien dan andal.</td>
+                    </tr>
+                    <tr>
+                        <td>4. Kompetensi Sistem Energi</td>
+                        <td>Mampu menganalisis dan merancang sistem konversi energi, termasuk energi konvensional dan terbarukan, secara efisien dan berkelanjutan.</td>
+                    </tr>
+                    <tr>
+                        <td>5. Kemampuan Riset & Inovasi</td>
+                        <td>Mampu merancang dan melakukan eksperimen, menganalisis dan menginterpretasi data, serta menghasilkan solusi inovatif berbasis riset.</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4"><strong>Kecakapan Manajerial & Interpersonal</strong></td>
+                        <td>1. Kepemimpinan & Manajemen Tim</td>
+                        <td>Mampu memimpin dan mengelola tim secara efektif, mendelegasikan tugas, memotivasi anggota, dan mengelola konflik untuk mencapai tujuan bersama.</td>
+                    </tr>
+                    <tr>
+                        <td>2. Komunikasi Profesional</td>
+                        <td>Mampu menyampaikan gagasan teknis dan non-teknis secara jelas, efektif, dan persuasif, baik secara lisan maupun tulisan, kepada beragam audiens.</td>
+                    </tr>
+                    <tr>
+                        <td>3. Pemecahan Masalah Kompleks & Berpikir Kritis</td>
+                        <td>Mampu mengidentifikasi masalah yang kompleks, menganalisis dari berbagai sudut pandang, dan merumuskan solusi yang logis dan berbasis bukti.</td>
+                    </tr>
+                    <tr>
+                        <td>4. Adaptabilitas & Pembelajaran Berkelanjutan</td>
+                        <td>Menunjukkan kemauan dan kemampuan untuk belajar hal baru secara mandiri, beradaptasi dengan perubahan teknologi, dan terus mengembangkan diri sepanjang hayat.</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4"><strong>Karakter Berintegritas & Berdampak</strong></td>
+                        <td>1. Integritas & Etika Profesional</td>
+                        <td>Bertindak secara jujur, bertanggung jawab, dan mematuhi etika profesi keinsinyuran dalam setiap tindakan.</td>
+                    </tr>
+                    <tr>
+                        <td>2. Solidaritas & Kolaborasi</td>
+                        <td>Menjunjung tinggi nilai kebersamaan (Solidaritas, Über Alles), mampu bekerja sama secara inklusif, dan membangun jejaring profesional yang positif.</td>
+                    </tr>
+                    <tr>
+                        <td>3. Kesadaran Sosial & Lingkungan</td>
+                        <td>Memiliki kepekaan terhadap isu-isu sosial dan lingkungan serta mempertimbangkan dampak dari solusi rekayasa yang dihasilkan.</td>
+                    </tr>
+                    <tr>
+                        <td>4. Inisiatif & Jiwa Wirausaha</td>
+                        <td>Proaktif dalam mencari dan menciptakan peluang, serta memiliki pola pikir inovatif dan berorientasi pada penciptaan nilai tambah.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Lampiran -->
+    <div class="container">
+        <h2>LAMPIRAN</h2>
+        
+        <div class="attachment">
+            <h3>LAMPIRAN I: PROFIL IDEAL MAHASISWA TEKNIK MESIN ITS</h3>
+            <p>(Merujuk pada Tabel 2.1 dalam Naskah Akademik)</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pilar Kompetensi</th>
+                        <th>Dimensi Kompetensi</th>
+                        <th>Indikator Perilaku Kunci (Capaian)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Konten tabel sama seperti di BAB II -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="attachment">
+            <h3>LAMPIRAN II: PEMETAAN KOMPETENSI AKADEMIK (GENERAL)</h3>
+            
+            <h4>Tabel 4.1: Pemetaan Kompetensi Mata Kuliah Wajib - Semester I</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kode MK</th>
+                        <th>Nama Mata Kuliah</th>
+                        <th>SKS</th>
+                        <th>Rekomendasi Hard Skill (Kompetensi Teknis)</th>
+                        <th>Rekomendasi Soft Skill (Kompetensi Interpersonal/Konseptual)</th>
+                        <th>Rekomendasi Aktivitas Pengembangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>UG184912</td>
+                        <td>Bahasa Indonesia</td>
+                        <td>2</td>
+                        <td>Penulisan ilmiah dasar, penyusunan paragraf logis, penggunaan referensi & sitasi.</td>
+                        <td>Berpikir terstruktur, komunikasi tertulis efektif, etika akademik.</td>
+                        <td>Mengikuti Pelatihan Karya Tulis Ilmiah (PKTI) Dasar, aktif menulis di media himpunan.</td>
+                    </tr>
+                    <tr>
+                        <td>UG18490[1-6]</td>
+                        <td>Pendidikan Agama</td>
+                        <td>2</td>
+                        <td>Pemahaman etika profesi dari perspektif agama.</td>
+                        <td>Integritas, toleransi, kecerdasan spiritual, etika dan moral.</td>
+                        <td>Aktif dalam kegiatan Lembaga Kajian Kerohanian (misal: LKKI Ash-Shaff).</td>
+                    </tr>
+                    <tr>
+                        <td>KM184101</td>
+                        <td>Matematika I</td>
+                        <td>3</td>
+                        <td>Diferensiasi dan integrasi fungsi satu variabel, aplikasi turunan dan integral.</td>
+                        <td>Penalaran logis, pemecahan masalah kuantitatif, ketelitian.</td>
+                        <td>Membentuk kelompok belajar, mengerjakan latihan soal secara rutin, mengikuti responsi.</td>
+                    </tr>
+                    <tr>
+                        <td>SF184101</td>
+                        <td>Fisika Dasar 1</td>
+                        <td>4</td>
+                        <td>Analisis vektor, kinematika & dinamika partikel, kerja & energi, mekanika benda tegar.</td>
+                        <td>Berpikir analitis, pemodelan fisis, pemecahan masalah sistematis.</td>
+                        <td>Mengaitkan konsep fisika dengan fenomena mekanis sederhana, aktif dalam praktikum.</td>
+                    </tr>
+                    <tr>
+                        <td>UG184913</td>
+                        <td>Kewarganegaraan</td>
+                        <td>2</td>
+                        <td>Pemahaman hak & kewajiban warga negara, analisis isu kebangsaan.</td>
+                        <td>Kesadaran sosial & kebangsaan, berpikir kritis terhadap isu publik.</td>
+                        <td>Mengikuti diskusi atau seminar kebangsaan, terlibat dalam kegiatan sosial kemasyarakatan.</td>
+                    </tr>
+                    <tr>
+                        <td>SK184101</td>
+                        <td>Kimia</td>
+                        <td>3</td>
+                        <td>Stoikiometri, termokimia, struktur atom, ikatan kimia, laju reaksi.</td>
+                        <td>Pemahaman sebab-akibat, analisis proses kimia dasar.</td>
+                        <td>Menghubungkan konsep kimia dengan pemilihan material dasar dalam teknik.</td>
+                    </tr>
+                    <tr>
+                        <td>TM184101</td>
+                        <td>Pengantar Teknik Mesin</td>
+                        <td>2</td>
+                        <td>Pengenalan 4 pilar Teknik Mesin (Desain, Manufaktur, Konversi Energi, Material).</td>
+                        <td>Wawasan keprofesian, perencanaan karir awal, berpikir sistem.</td>
+                        <td>Kunjungan virtual/fisik ke laboratorium, mengikuti talkshow alumni/praktisi.</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h4>Tabel 4.2: Pemetaan Kompetensi Mata Kuliah Wajib - Semester II</h4>
+            <p>Semester kedua membangun fondasi bahasa rekayasa yang fundamental, mencakup bahasa matematika, fisika, logika pemrograman, dan grafis. Penguasaan pada semester ini menjadi prasyarat krusial untuk analisis rekayasa yang lebih kompleks di semester-semester berikutnya. Tema utama pengembangan pada semester ini adalah <strong>presisi dan abstraksi</strong>, yaitu kemampuan untuk merepresentasikan realitas fisis yang kompleks melalui model matematis dan grafis yang akurat.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kode MK</th>
+                        <th>Nama Mata Kuliah</th>
+                        <th>SKS</th>
+                        <th>Rekomendasi Hard Skill (Kompetensi Teknis)</th>
+                        <th>Rekomendasi Soft Skill (Kompetensi Interpersonal/Konseptual)</th>
+                        <th>Rekomendasi Aktivitas Pengembangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Konten tabel semester II -->
+                </tbody>
+            </table>
+            
+            <!-- Tabel untuk semester berikutnya -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Dokumen Resmi Keluarga Mahasiswa Mesin (KMM) ITS | Institut Teknologi Sepuluh Nopember</p>
+        <p>© 2024 - Hak Cipta Dilindungi Undang-Undang</p>
+    </div>
+</body>
+</html>
